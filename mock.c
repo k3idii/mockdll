@@ -2,7 +2,8 @@
 #include <windows.h>
 #include "bitstr.h"
 
-#define hello_str "DLL: Hello from " bitstr "bit code ! "
+#define signature "#DLL" bitstr "# "
+#define hello_str signature "Hello from " bitstr "bit code ! "
 
 // #ifdef BUILD_DLL /* DLL export */
 #define EXPORT __declspec(dllexport)
@@ -26,19 +27,19 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     {
         case DLL_PROCESS_ATTACH:
             // Code to run when the DLL is loaded
-        message("DLL: Load working...");
+        message(signature " Load working...");
             break;
         case DLL_PROCESS_DETACH:
             // Code to run when the DLL is freed
-        message("DLL: Unload working...");
+        message(signature " Unload working...");
             break;
         case DLL_THREAD_ATTACH:
             // Code to run when a thread is created during the DLL's lifetime
-        message("DLL: ThreadLoad working...");
+        message(signature " ThreadLoad working...");
             break;
         case DLL_THREAD_DETACH:
             // Code to run when a thread ends normally.
-        message("DLL: ThreadUnload working...");
+        message(signature " ThreadUnload working...");
             break;
     }
     return TRUE;
